@@ -1,6 +1,6 @@
 ##################################################################################
 #
-# Customize this file  by replacing studentid with your own student ID:
+# Customize this file  by replacing amuhizi with your own student ID:
 # there are six replacements to be made.
 #
 # Make sure you have done the following:
@@ -11,10 +11,10 @@
 # - created a subdirectory named data in the package
 #   and that you have created the input file assignment4Input.txt there
 #
-# - created the interface file studentid.h in the include/assignment4 subdirectory
+# - created the interface file amuhizi.h in the include/assignment4 subdirectory
 #
-# - created the application source file studentidApplication.cpp
-#   and the implementation source file  studentidImplementation.cpp
+# - created the application source file amuhiziApplication.cpp
+#   and the implementation source file  amuhiziImplementation.cpp
 #   in the src subdirectory
 #
 ##################################################################################
@@ -45,7 +45,7 @@ install(DIRECTORY data/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/data
   )
 
-add_executable       (${PROJECT_NAME}_studentid src/studentidImplementation.cpp src/studentidApplication.cpp)
-set_target_properties(${PROJECT_NAME}_studentid PROPERTIES OUTPUT_NAME studentid  PREFIX "")
-target_link_libraries(${PROJECT_NAME}_studentid ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+add_executable       (${PROJECT_NAME}_amuhizi src/amuhiziImplementation.cpp src/amuhiziApplication.cpp)
+set_target_properties(${PROJECT_NAME}_amuhizi PROPERTIES OUTPUT_NAME amuhizi  PREFIX "")
+target_link_libraries(${PROJECT_NAME}_amuhizi ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
