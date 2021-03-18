@@ -10,7 +10,7 @@
 
 */
 
-#include "assignment4/dvernon.h"
+#include "assignment4/amuhizi.h"
 
 void drawCrossHairs(Mat hough,  int x, int y, int size, int red, int green, int blue, int lineWeight) {
 
