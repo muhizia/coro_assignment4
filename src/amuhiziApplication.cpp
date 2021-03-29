@@ -175,9 +175,7 @@ int main()
                getAngle(arcLine_points.at(i), centers.at(i), &thetha);
                printf("( %d, %d, %.2f ) \n", centers.at(i).x, centers.at(i).y, thetha);
          }
-         imshow( "Src", src);
-         cv::waitKey(0);
-         
+         imshow( "Src", src);         
 
 
          fprintf(fp_out, "%s: ", filename);
