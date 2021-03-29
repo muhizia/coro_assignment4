@@ -58,21 +58,21 @@
   DV 14 March 2021
 
 */
- 
+
 #include <assignment4/amuhizi.h> // replace studentid with your own student ID
 
 int main()
 {
    bool debug = false;
-   
-   const char input_filename[MAX_FILENAME_LENGTH] = "assignment4Input.txt";    
+
+   const char input_filename[MAX_FILENAME_LENGTH] = "assignment4Input.txt";
    const char output_filename[MAX_FILENAME_LENGTH] = "assignment4Output.txt";
    char input_path_and_filename[MAX_FILENAME_LENGTH];
-   char output_path_and_filename[MAX_FILENAME_LENGTH];    
+   char output_path_and_filename[MAX_FILENAME_LENGTH];
    char data_dir[MAX_FILENAME_LENGTH];
    char filename[MAX_FILENAME_LENGTH];
    char file_path_and_filename[MAX_FILENAME_LENGTH];
-     
+
    FILE *fp_in, *fp_out;
    int end_of_file;
 
@@ -80,93 +80,127 @@ int main()
 
    int row;
    int col;
-    
-   const char* input_window_name  = "Input Image";
-   
+
+   const char *input_window_name = "Input Image";
+
    int i;
-   int x                = 0;
-   int y                = 0;
-   int theta            = 0;  
+   int x = 0;
+   int y = 0;
+   int theta = 0;
    int number_of_blocks = 0;
-   
+
    strcpy(data_dir, ros::package::getPath(ROS_PACKAGE_NAME).c_str()); // get the package directory
 
    strcat(data_dir, "/data/");
-   
+
    strcpy(input_path_and_filename, data_dir);
    strcat(input_path_and_filename, input_filename);
 
    strcpy(output_path_and_filename, data_dir);
    strcat(output_path_and_filename, output_filename);
-   
-   if ((fp_in = fopen(input_path_and_filename,"r")) == 0) {
-     printf("Error can't open input %s\n",input_path_and_filename);
-     prompt_and_exit(1);
+
+   if ((fp_in = fopen(input_path_and_filename, "r")) == 0)
+   {
+      printf("Error can't open input %s\n", input_path_and_filename);
+      prompt_and_exit(1);
    }
 
-   if ((fp_out = fopen(output_path_and_filename,"w")) == 0) {
-     printf("Error can't open output %s\n",output_path_and_filename);
-     prompt_and_exit(1);
+   if ((fp_out = fopen(output_path_and_filename, "w")) == 0)
+   {
+      printf("Error can't open output %s\n", output_path_and_filename);
+      prompt_and_exit(1);
    }
 
+   fprintf(fp_out, "studentid\n");
+
+   cv::Mat imgGray, imgBlur, imgCanny, imgDil, imgErode;
+   cv::Mat thresholdedImage;
    
-   fprintf(fp_out,"studentid\n");
+   std::vector<std::vector<cv::Point>> contours;
+   
+   float thetha = 0;
+   std::vector<cv::Point> centers;
+   std::vector<cv::Point> arcLine_points;
+   int j = 0;
+   int thresholdValue[] = {75, 35, 123, 123, 123};
+         
 
-   namedWindow(input_window_name, CV_WINDOW_AUTOSIZE );
 
-   do {
+   namedWindow(input_window_name, CV_WINDOW_AUTOSIZE);
+
+   do
+   {
 
       end_of_file = fscanf(fp_in, "%s", filename);
 
-      if (end_of_file != EOF) {
-         if (debug) printf ("%s\n",filename);
+      if (end_of_file != EOF)
+      {
+         if (debug)
+            printf("%s\n", filename);
 
          number_of_blocks = 0;
 
-         printf("Processing %s; press any key to continue ...\n",filename);
+         printf("Processing %s; press any key to continue ...\n", filename);
 
-	 strcpy(file_path_and_filename, data_dir);
+         strcpy(file_path_and_filename, data_dir);
          strcat(file_path_and_filename, filename);
-      
+
          src = imread(file_path_and_filename, CV_LOAD_IMAGE_COLOR);
 
-         if(src.empty()) {
+         if (src.empty())
+         {
             cout << "can not open " << file_path_and_filename << endl;
             return -1;
          }
 
-         imshow (input_window_name, src);
+         imshow(input_window_name, src);
          waitKey(30);
 
-	 /* ----------------------------------------
+         /* ----------------------------------------
 
-	    Solution to the assignment goes here ... 
+         Solution to the assignment goes here ... 
 
-	    ----------------------------------------*/
+         ----------------------------------------*/
 
-	 
          /* write results */
-	 
-         fprintf(fp_out, "%s: ", filename);
-         for (i = 0; i < number_of_blocks; i++) {
-            fprintf(fp_out,"(%3d, %3d, %3d) ", x, y, theta);   //  positive angle anticlockwise from horizontal
-         }
-         fprintf(fp_out,"\n");
 
-         do{
-           waitKey(30);           
-         } while (!_kbhit());     
+
+         ContourExtraction(src, &contours, thresholdValue[j]);
+         j++;
+         getCenter(&src, contours, &centers, &arcLine_points);
+         
+         if (debug) printf("Number of contours %lu: \n", contours.size());
+         for(int i = 0; i < centers.size(); i++)
+         {
+               getAngle(arcLine_points.at(i), centers.at(i), &thetha);
+               printf("( %d, %d, %.2f ) \n", centers.at(i).x, centers.at(i).y, thetha);
+         }
+         imshow( "Src", img);
+         cv::waitKey(0);
+         
+
+
+         fprintf(fp_out, "%s: ", filename);
+         for (i = 0; i < number_of_blocks; i++)
+         {
+            fprintf(fp_out, "(%3d, %3d, %3d) ", x, y, theta); //  positive angle anticlockwise from horizontal
+         }
+         fprintf(fp_out, "\n");
+
+         do
+         {
+            waitKey(30);
+         } while (!_kbhit());
 
          getchar(); // flush the buffer from the keyboard hit
-            
       }
 
    } while (end_of_file != EOF);
 
-   destroyWindow(input_window_name);  
+   destroyWindow(input_window_name);
 
    fclose(fp_in);
    fclose(fp_out);
-   
+
    return 0;
 }
