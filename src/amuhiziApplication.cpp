@@ -115,7 +115,7 @@ int main()
 
    cv::Mat imgGray, imgBlur, imgCanny, imgDil, imgErode;
    cv::Mat thresholdedImage;
-   
+   float thetha;
    std::vector<std::vector<cv::Point>> contours;
    
    std::vector<cv::Point> centers;
@@ -172,9 +172,9 @@ int main()
          fprintf(fp_out, "%s: ", filename);
          for(int i = 0; i < centers.size(); i++)
          {
-               getAngle(arcLine_points.at(i), centers.at(i), &theta);
-               printf("( %3d, %3d, %3d ) \n", centers.at(i).x, centers.at(i).y, theta);
-               fprintf(fp_out, "(%3d, %3d, %3d) ", centers.at(i).x, centers.at(i).y, theta); //  positive angle anticlockwise from horizontal
+               getAngle(arcLine_points.at(i), centers.at(i), &thetha);
+               printf("( %3d, %3d, %3d ) \n", centers.at(i).x, centers.at(i).y, (int)thetha);
+               fprintf(fp_out, "(%3d, %3d, %3d) ", centers.at(i).x, centers.at(i).y, (int)thetha); //  positive angle anticlockwise from horizontal
          }
          imshow( "Src", src);         
 
