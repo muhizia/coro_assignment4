@@ -111,14 +111,13 @@ int main()
       prompt_and_exit(1);
    }
 
-   fprintf(fp_out, "studentid\n");
+   fprintf(fp_out, "amuhizi\n");
 
    cv::Mat imgGray, imgBlur, imgCanny, imgDil, imgErode;
    cv::Mat thresholdedImage;
    
    std::vector<std::vector<cv::Point>> contours;
    
-   float thetha = 0;
    std::vector<cv::Point> centers;
    std::vector<cv::Point> arcLine_points;
    int j = 0;
@@ -127,7 +126,7 @@ int main()
 
 
    namedWindow(input_window_name, CV_WINDOW_AUTOSIZE);
-
+   
    do
    {
 
@@ -170,19 +169,21 @@ int main()
          getCenter(&src, contours, &centers, &arcLine_points);
          
          if (debug) printf("Number of contours %lu: \n", contours.size());
+         fprintf(fp_out, "%s: ", filename);
          for(int i = 0; i < centers.size(); i++)
          {
-               getAngle(arcLine_points.at(i), centers.at(i), &thetha);
-               printf("( %d, %d, %.2f ) \n", centers.at(i).x, centers.at(i).y, thetha);
+               getAngle(arcLine_points.at(i), centers.at(i), &theta);
+               printf("( %3d, %3d, %3d ) \n", centers.at(i).x, centers.at(i).y, theta);
+               fprintf(fp_out, "(%3d, %3d, %3d) ", centers.at(i).x, centers.at(i).y, theta); //  positive angle anticlockwise from horizontal
          }
          imshow( "Src", src);         
 
 
-         fprintf(fp_out, "%s: ", filename);
-         for (i = 0; i < number_of_blocks; i++)
-         {
-            fprintf(fp_out, "(%3d, %3d, %3d) ", x, y, theta); //  positive angle anticlockwise from horizontal
-         }
+         // fprintf(fp_out, "%s: ", filename);
+         // for (i = 0; i < number_of_blocks; i++)
+         // {
+         //    fprintf(fp_out, "(%3d, %3d, %3d) ", x, y, theta); //  positive angle anticlockwise from horizontal
+         // }
          fprintf(fp_out, "\n");
 
          do
