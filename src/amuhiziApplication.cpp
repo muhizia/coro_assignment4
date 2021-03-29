@@ -185,7 +185,8 @@ int main()
          //    fprintf(fp_out, "(%3d, %3d, %3d) ", x, y, theta); //  positive angle anticlockwise from horizontal
          // }
          fprintf(fp_out, "\n");
-
+         if(centers.size() != 0) centers.clear();
+         if(arcLine_points.size() != 0) arcLine_points.clear();
          do
          {
             waitKey(30);
