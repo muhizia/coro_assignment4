@@ -173,7 +173,7 @@ int main()
          for(int i = 0; i < centers.size(); i++)
          {
                getAngle(arcLine_points.at(i), centers.at(i), &thetha);
-               printf("( %3d, %3d, %3d ) \n", centers.at(i).x, centers.at(i).y, (int)thetha);
+               printf("( %3d, %3d, %3d ) ", centers.at(i).x, centers.at(i).y, (int)thetha);
                fprintf(fp_out, "(%3d, %3d, %3d) ", centers.at(i).x, centers.at(i).y, (int)thetha); //  positive angle anticlockwise from horizontal
          }
          imshow( "Src", src);         
