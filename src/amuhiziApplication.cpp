@@ -116,8 +116,8 @@ int main()
 
    fprintf(fp_out, "amuhizi\n");
 
-   cv::Mat imgGray, imgBlur, imgCanny, imgDil, imgErode;
-   cv::Mat thresholdedImage;
+   cv::Mat imgGray, imgBlur, imgCanny;
+   cv::Mat src_bgr;
    std::vector<std::vector<cv::Point>> contours;
    std::vector<cv::Point> centers;
    std::vector<cv::Point> arcLine_points;
