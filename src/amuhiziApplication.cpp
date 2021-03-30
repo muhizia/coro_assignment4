@@ -49,6 +49,9 @@
   David Vernon
   1 March 2018
 
+  Aristide Muhizi
+  30 March 2020
+
   Audit Trail
   -----------
   Changed the range of orientation angle from -90 < theta <= 90 to 0 <= theta < 180
@@ -115,13 +118,9 @@ int main()
 
    cv::Mat imgGray, imgBlur, imgCanny, imgDil, imgErode;
    cv::Mat thresholdedImage;
-   int thetha;
    std::vector<std::vector<cv::Point>> contours;
-   
    std::vector<cv::Point> centers;
    std::vector<cv::Point> arcLine_points;
-   int j = 0;
-   int thresholdValue[] = {75, 35, 123, 123, 123};
          
 
 
@@ -163,28 +162,30 @@ int main()
 
          /* write results */
 
-
+         /**
+          * getting contours of the bricks in the pictures
+         */
          ContourExtraction(src, &contours, 150);
+         /**
+          * Getting centers of the bricks in the vector
+         */
          getCenter(&src, contours, &centers, &arcLine_points);
-        
+         number_of_blocks = centers.size();
          if (debug) printf("Number of contours %lu: \n", contours.size());
-         for(int i = 0; i < centers.size(); i++)
+         fprintf(fp_out, "%s: ", filename);
+         for(int i = 0; i < number_of_blocks; i++)
          {
-               getAngle(arcLine_points.at(i), centers.at(i), &thetha);
-               printf("( %3d, %3d, %3d ) \n", centers.at(i).x, centers.at(i).y, thetha);
-               drawCrossHairs(src, centers.at(i).x, centers.at(i).y, 10, 255, 255, 0, 1);
-               drawArrowedLine(src, centers.at(i).x, centers.at(i).y, 90, - degToRad(thetha), 255, 255, 0, 1);
+               getAngle(arcLine_points.at(i), centers.at(i), &thetha);                                            //getting the orientation angle
+               printf("( %3d, %3d, %3d ) \n", centers.at(i).x, centers.at(i).y, theta);
+               fprintf(fp_out, "(%3d, %3d, %3d) ", x, y, theta);                                                  //  positive angle anticlockwise from horizontal
+               drawCrossHairs(src, centers.at(i).x, centers.at(i).y, 10, 255, 255, 0, 1);                         // drawing the center mark
+               drawArrowedLine(src, centers.at(i).x, centers.at(i).y, 90, - degToRad(theta), 255, 255, 0, 1);     // drawing the arrow
          }
-         
-         imshow( "Src", src);        
-
-
-         // fprintf(fp_out, "%s: ", filename);
-         // for (i = 0; i < number_of_blocks; i++)
-         // {
-         //    fprintf(fp_out, "(%3d, %3d, %3d) ", x, y, theta); //  positive angle anticlockwise from horizontal
-         // }
+         imshow( "Src", src);
          fprintf(fp_out, "\n");
+         /**
+          *  After scanning one picture clear the vectors
+          */
          if(centers.size() != 0) centers.clear();
          if(arcLine_points.size() != 0) arcLine_points.clear();
          do

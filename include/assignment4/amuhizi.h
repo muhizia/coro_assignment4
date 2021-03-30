@@ -5,6 +5,9 @@
   David Vernon
   1 March 2017
 
+  Aristide Muhizi
+  30 March 2020
+  
   Ported to ROS and OpenCV 3.3
   DV 14 March 2021
 
@@ -60,6 +63,9 @@ float lineLength(Point2f p1, Point2f p2);
 void prompt_and_exit(int status);
 void prompt_and_continue();
 
+/**
+ *  added function prototypes 30 Mar 2021
+ */
 void getAngle(cv::Point point, cv::Point center, int *thetha);
 void radToDeg(float rad, float *deg);
 float degToRad(int deg);

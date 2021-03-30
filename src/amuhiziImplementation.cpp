@@ -175,6 +175,13 @@ void prompt_and_continue() {
    getchar();
 }
 
+/**
+ * 
+ * Extracting the countours of the objects in the picture
+ * This function retours vector of vectors of points which is the container of all coutours found int the picture.
+ * This function is the edited version taken from the notes Introduction Cognitive Robotics Prof. David Vernon.
+ * 
+*/
 
 void ContourExtraction(cv::Mat src, std::vector<std::vector<cv::Point>> *contours, int thresholdValue)
 {
@@ -182,7 +189,7 @@ void ContourExtraction(cv::Mat src, std::vector<std::vector<cv::Point>> *contour
     cv::Mat src_blur;
     cv::Mat detected_edges;
     
-    bool debug = true;
+    bool debug = false;
     int ratio = 3;
     int kernel_size = 3;
     int filter_size;
@@ -197,7 +204,6 @@ void ContourExtraction(cv::Mat src, std::vector<std::vector<cv::Point>> *contour
     GaussianBlur(src_gray, src_blur, cv::Size(filter_size,filter_size), kernel_size);
     Canny(src_gray, detected_edges,thresholdValue, thresholdValue*ratio, kernel_size ) ;
 
-    
     
     cv::Mat canny_edge_image_copy = detected_edges.clone();
     // clone the edge image because findContours overwrites it
@@ -214,11 +220,19 @@ void ContourExtraction(cv::Mat src, std::vector<std::vector<cv::Point>> *contour
     }
 }
 
+/**
+ * Calculating distance between two points using two x,y coordinates.
+ * Return the distance between two points
+ **/
 void distance(int x1, int y1, int x2, int y2, int *distance)
 {
-   // Calculating distance between two points using two x,y coordinates.
    *distance = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2) * 1.0);
 }
+/**
+ * Getting the center of all object found in the picture
+ * Some of the object are ignored since I was tracking brick that are in the range of 3000 area
+ *
+*/
 void getCenter(cv::Mat *src, std::vector<std::vector<cv::Point>> contours,std::vector<cv::Point> *centers, std::vector<cv::Point> *points_on_arcLine){
     int centerX, centerY;
     bool debug = false;
@@ -265,7 +279,7 @@ void getCenter(cv::Mat *src, std::vector<std::vector<cv::Point>> contours,std::v
             if(debug) std::cout << "Center x_0: " << centerX << " Center y_0: " << centerY<< std::endl;
             distance(point_0.x, point_0.y, point_1.x, point_1.y, &distance_1);
             distance(point_1.x, point_1.y, point_2.x, point_2.y, &distance_2);
-            // check the smaller side on the found brick.
+            // check the smaller side on the found brick in order to identify the orientation.
             if(distance_1 < distance_2)
             {
                 points_on_arcLine->push_back(cv::Point((point_0.x + point_1.x) / 2, (point_0.y + point_1.y)/2));
@@ -284,11 +298,17 @@ void getCenter(cv::Mat *src, std::vector<std::vector<cv::Point>> contours,std::v
         }
     }
 }
-void radToDeg(float rad, int *deg) // converting from radian to degree
+/**
+ *  converting from radian to degree
+ */
+void radToDeg(float rad, int *deg) 
 {
     *deg = rad * (180.0/M_PI);
 }
-float degToRad(int deg) // converting from degree to radian
+/**
+ *  converting from degree to radian
+ */
+float degToRad(int deg)
 {
     return deg * (M_PI/180);
 }
