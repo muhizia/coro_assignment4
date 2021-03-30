@@ -115,7 +115,7 @@ int main()
 
    cv::Mat imgGray, imgBlur, imgCanny, imgDil, imgErode;
    cv::Mat thresholdedImage;
-   float thetha;
+   int thetha;
    std::vector<std::vector<cv::Point>> contours;
    
    std::vector<cv::Point> centers;
