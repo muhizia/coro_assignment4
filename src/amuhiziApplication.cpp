@@ -203,7 +203,7 @@ int main()
          imshow( "Src", src);
          if(centers.size() != 0) centers.clear();
          if(arcLine_points.size() != 0) arcLine_points.clear();
-         cv::waitKey(0);
+         //cv::waitKey(0);
          /**
           * show image on the screen
          */
