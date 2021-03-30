@@ -121,7 +121,10 @@ int main()
    std::vector<std::vector<cv::Point>> contours;
    std::vector<cv::Point> centers;
    std::vector<cv::Point> arcLine_points;
-         
+   unsigned char red, green, blue;
+   float hue, saturation, intensity;
+    
+    std::vector<PIC_VALUES> pic_vals;
 
 
    namedWindow(input_window_name, CV_WINDOW_AUTOSIZE);
@@ -195,7 +198,7 @@ int main()
          /**
           * clearing the picture value to use it on the next read picture.
          */
-        
+
          pic_vals.clear();
          imshow( "Src", src);
          if(centers.size() != 0) centers.clear();
