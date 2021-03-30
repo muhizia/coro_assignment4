@@ -66,7 +66,7 @@
 
 int main()
 {
-   bool debug = false;
+   bool debug = true;
 
    const char input_filename[MAX_FILENAME_LENGTH] = "assignment4Input.txt";
    const char output_filename[MAX_FILENAME_LENGTH] = "assignment4Output.txt";
