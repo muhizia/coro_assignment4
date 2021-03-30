@@ -79,7 +79,7 @@ void distance(int x1, int y1, int x2, int y2, float *distance);
 void ContourExtraction(cv::Mat src, std::vector<std::vector<cv::Point>> *contours, int thresholdValue);
 void getRGB(cv::Mat img, int x, int y, unsigned char *red, unsigned char *green, unsigned char *blue);
 bool smallHue(PIC_VALUES pv1, PIC_VALUES pv2);
-void hueMagnitue(float *hue)
+void hueMagnitue(float *hue);
 
 #ifdef ROS
    int _kbhit();
