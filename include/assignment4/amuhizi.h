@@ -62,6 +62,7 @@ void prompt_and_continue();
 
 void getAngle(cv::Point point, cv::Point center, float *thetha);
 void radToDeg(float rad, float *deg);
+float degToRad(int deg);
 void getCenter(cv::Mat *src, std::vector<std::vector<cv::Point>> contours,std::vector<cv::Point> *centers, std::vector<cv::Point> *points_on_arcLine);
 void distance(int x1, int y1, int x2, int y2, float *distance);
 void ContourExtraction(cv::Mat src, std::vector<std::vector<cv::Point>> *contours, int thresholdValue);

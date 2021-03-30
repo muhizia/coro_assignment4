@@ -164,19 +164,19 @@ int main()
          /* write results */
 
 
-         ContourExtraction(src, &contours, thresholdValue[j]);
-         j++;
+         ContourExtraction(src, &contours, 150);
          getCenter(&src, contours, &centers, &arcLine_points);
-         
+        
          if (debug) printf("Number of contours %lu: \n", contours.size());
-         fprintf(fp_out, "%s: ", filename);
          for(int i = 0; i < centers.size(); i++)
          {
                getAngle(arcLine_points.at(i), centers.at(i), &thetha);
-               printf("( %3d, %3d, %3d ) ", centers.at(i).x, centers.at(i).y, (int)thetha);
-               fprintf(fp_out, "(%3d, %3d, %3d) ", centers.at(i).x, centers.at(i).y, (int)thetha); //  positive angle anticlockwise from horizontal
+               printf("( %3d, %3d, %3d ) \n", centers.at(i).x, centers.at(i).y, thetha);
+               drawCrossHairs(src, centers.at(i).x, centers.at(i).y, 10, 255, 255, 0, 1);
+               drawArrowedLine(src, centers.at(i).x, centers.at(i).y, 90, - degToRad(thetha), 255, 255, 0, 1);
          }
-         imshow( "Src", src);         
+         
+         imshow( "Src", src);        
 
 
          // fprintf(fp_out, "%s: ", filename);
