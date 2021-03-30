@@ -338,7 +338,10 @@ void getAngle(cv::Point point, cv::Point center, int *thetha)
     rad = abs(atan2(deltaY, deltaX));
     radToDeg(rad, thetha);
 }
-
+void hueMagnitue(float *hue)
+{
+    if(*hue > 180) *hue = 360 - *hue;
+}
 #ifdef ROS
 /**
  Linux (POSIX) implementation of _kbhit().
