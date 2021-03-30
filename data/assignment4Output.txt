@@ -1,6 +1,6 @@
-studentid
-assignment4_0.jpg: 
-assignment4_1.jpg: 
-assignment4_2.jpg: 
-assignment4_3.jpg: 
-assignment4_14.jpg: 
+amuhizi
+assignment4_0.jpg: (289, 160,  56) 
+assignment4_1.jpg: (227, 151,  21) 
+assignment4_2.jpg: (209, 146, 144) 
+assignment4_3.jpg: (162, 154,  79) (260, 142, 105) 
+assignment4_14.jpg: (259, 191,  80) (167, 179, 178) (352, 195, 180) 
