@@ -56,6 +56,15 @@
   -----------
   Changed the range of orientation angle from -90 < theta <= 90 to 0 <= theta < 180
   DV 20 February 2020
+  
+  Exchanged the list of the picture name in the assignment4Input.txt
+  Flipped right images to detect the position of the brick.
+  Flipped left images to detect the position of the brick.
+  Flipped down images to detect the position of the brick.
+  
+  Aristide Muhizi
+  30 March 2021
+
 
   Ported to ROS
   DV 14 March 2021
@@ -99,7 +108,7 @@ int main()
    std::vector<cv::Point> arcLine_points;
    unsigned char red, green, blue;
    float hue, saturation, intensity;
-   
+
    strcpy(data_dir, ros::package::getPath(ROS_PACKAGE_NAME).c_str()); // get the package directory
 
    strcat(data_dir, "/data/");
