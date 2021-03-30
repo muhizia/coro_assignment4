@@ -38,12 +38,12 @@
   assignment4_14.png
 
   Sample Output
-  studentid
-  assignment4_0.png: (288, 159,  57) 
-  assignment4_1.png: (227, 151,  21) 
-  assignment4_2.png: (208, 145, 142) 
-  assignment4_3.png: (163, 153,  80) (259, 142, 105) 
-  assignment4_14.png: (259, 190,  81) (165, 179, 177) (352, 193, 178) 
+  amuhizi
+  assignment4_0.jpg: (289, 160,  56) 
+  assignment4_1.jpg: (227, 151,  21) 
+  assignment4_2.jpg: (209, 146, 144) 
+  assignment4_3.jpg: (162, 154,  79) (260, 142, 105) 
+  assignment4_14.jpg: (259, 191,  80) (167, 179, 178) (352, 195, 180) 
 
 
   David Vernon
@@ -92,6 +92,14 @@ int main()
    int theta = 0;
    int number_of_blocks = 0;
 
+   cv::Mat imgGray, imgBlur, imgCanny;
+   cv::Mat src_bgr;
+   std::vector<std::vector<cv::Point>> contours;
+   std::vector<cv::Point> centers;
+   std::vector<cv::Point> arcLine_points;
+   unsigned char red, green, blue;
+   float hue, saturation, intensity;
+   
    strcpy(data_dir, ros::package::getPath(ROS_PACKAGE_NAME).c_str()); // get the package directory
 
    strcat(data_dir, "/data/");
@@ -116,13 +124,6 @@ int main()
 
    fprintf(fp_out, "amuhizi\n");
 
-   cv::Mat imgGray, imgBlur, imgCanny;
-   cv::Mat src_bgr;
-   std::vector<std::vector<cv::Point>> contours;
-   std::vector<cv::Point> centers;
-   std::vector<cv::Point> arcLine_points;
-   unsigned char red, green, blue;
-   float hue, saturation, intensity;
     
     std::vector<PIC_VALUES> pic_vals;
 
