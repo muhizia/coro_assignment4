@@ -170,7 +170,7 @@ int main()
          */
          ContourExtraction(src, &contours, 150);
          
-         src_bgr = cv::imread(path + *i);
+         src_bgr = cv::imread(file_path_and_filename);
          /**
           * Getting centers of the bricks in the vector
          */
