@@ -94,8 +94,23 @@ float  lineLength(Point2f p1, Point2f p2) {
    return(sqrt( (p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)));
 }
 
+// comparing two hue values.
+bool smallHue(PIC_VALUES pv1, PIC_VALUES pv2)
+{
+    return (pv1.hue < pv2.hue);
+}
 
-
+void getRGB(cv::Mat img, int x, int y, unsigned char *red, unsigned char *green, unsigned char *blue) {
+    bool debug = true;
+    cv::Vec3b color = img.at<cv::Vec3b>(cv::Point(x,y));
+    *red   = color[2];
+    *green = color[1];
+    *blue  = color[0];
+    if(debug)
+    {
+        printf("RGB( %d, %d, %d ) \n", (int) color[2], (int) color[1], (int) color[0]);
+    }
+}
 // -----------------------------------------------------------------------------------------------
 // rgb2hsi
 //

@@ -166,21 +166,44 @@ int main()
           * getting contours of the bricks in the pictures
          */
          ContourExtraction(src, &contours, 150);
+         
+         src_bgr = cv::imread(path + *i);
          /**
           * Getting centers of the bricks in the vector
          */
          getCenter(&src, contours, &centers, &arcLine_points);
-         number_of_blocks = centers.size();
+         
          if (debug) printf("Number of contours %lu: \n", contours.size());
          fprintf(fp_out, "%s: ", filename);
+         number_of_blocks = centers.size();
          for(int i = 0; i < number_of_blocks; i++)
          {
-               getAngle(arcLine_points.at(i), centers.at(i), &thetha);                                            //getting the orientation angle
-               printf("( %3d, %3d, %3d ) \n", centers.at(i).x, centers.at(i).y, theta);
-               fprintf(fp_out, "(%3d, %3d, %3d) ", x, y, theta);                                                  //  positive angle anticlockwise from horizontal
-               drawCrossHairs(src, centers.at(i).x, centers.at(i).y, 10, 255, 255, 0, 1);                         // drawing the center mark
-               drawArrowedLine(src, centers.at(i).x, centers.at(i).y, 90, - degToRad(theta), 255, 255, 0, 1);     // drawing the arrow
+               getAngle(arcLine_points.at(i), centers.at(i), &theta);
+               drawCrossHairs(src, centers.at(i).x, centers.at(i).y, 10, 255, 255, 0, 1);
+               drawArrowedLine(src, centers.at(i).x, centers.at(i).y, 90, - degToRad(theta), 255, 255, 0, 1);
+               getRGB(src_bgr, centers.at(i).x, centers.at(i).y, &red, &green, &blue);
+               rgb2hsi(red, green, blue, &hue, &saturation, &intensity);
+               pic_vals.push_back({centers.at(i).x, centers.at(i).y, theta, hue});
          }
+         sort(pic_vals.begin(), pic_vals.end(), smallHue);
+         for (auto pic : pic_vals){
+               if(debug) printf("( %3d, %3d, %3d, %3f)", pic.x, pic.y, pic.theta, pic.hue);
+               fprintf(fp_out, "(%3d, %3d, %3d) ", pic.x, pic.y, pic.theta);
+         }
+         if(debug) printf("\n");
+         
+         /**
+          * clearing the picture value to use it on the next read picture.
+         */
+        
+         pic_vals.clear();
+         imshow( "Src", src);
+         if(centers.size() != 0) centers.clear();
+         if(arcLine_points.size() != 0) arcLine_points.clear();
+         cv::waitKey(0);
+         /**
+          * show image on the screen
+         */
          imshow( "Src", src);
          fprintf(fp_out, "\n");
          /**

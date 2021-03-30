@@ -53,6 +53,11 @@
 using namespace std;
 using namespace cv;
 
+struct PIC_VALUES
+{
+    int x , y, theta;
+    float hue;
+};
 /* function prototypes go here */
 
 void rgb2hsi(unsigned char red, unsigned char green, unsigned char blue, float *hue, float *saturation, float *intensity);
