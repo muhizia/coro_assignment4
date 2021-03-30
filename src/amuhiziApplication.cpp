@@ -186,7 +186,7 @@ int main()
                drawArrowedLine(src, centers.at(i).x, centers.at(i).y, 90, - degToRad(theta), 255, 255, 0, 1);
                getRGB(src_bgr, centers.at(i).x, centers.at(i).y, &red, &green, &blue);
                rgb2hsi(red, green, blue, &hue, &saturation, &intensity);
-               hueMagni(&hue);
+               hueMagnitue(&hue);
                pic_vals.push_back({centers.at(i).x, centers.at(i).y, theta, hue});
          }
          sort(pic_vals.begin(), pic_vals.end(), smallHue);
