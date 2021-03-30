@@ -60,7 +60,7 @@ float lineLength(Point2f p1, Point2f p2);
 void prompt_and_exit(int status);
 void prompt_and_continue();
 
-void getAngle(cv::Point point, cv::Point center, float *thetha);
+void getAngle(cv::Point point, cv::Point center, int *thetha);
 void radToDeg(float rad, float *deg);
 float degToRad(int deg);
 void getCenter(cv::Mat *src, std::vector<std::vector<cv::Point>> contours,std::vector<cv::Point> *centers, std::vector<cv::Point> *points_on_arcLine);
