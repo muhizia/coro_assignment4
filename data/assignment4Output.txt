@@ -1,4 +1,5 @@
 amuhizi
+bricks.png: (204, 278, 180) (434, 316, 180) (319, 297, 180) 
 assignment4_0.jpg: (289, 160,  56) 
 assignment4_1.jpg: (227, 151,  21) 
 assignment4_2.jpg: (209, 146, 144) 
